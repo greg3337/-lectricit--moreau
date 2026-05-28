@@ -6,7 +6,7 @@ const services = [
 ];
 
 const contact = [
-  { label: "06 12 34 56 78", href: "tel:+33612345678" },
+  { label: "06 00 00 00 00", href: "tel:+33600000000" },
   { label: "contact@electricite-moreau.fr", href: "mailto:contact@electricite-moreau.fr" },
   { label: "Bordeaux, Gironde (33)", href: null },
   { label: "Lun–Ven 7h–19h · Urgences 24h/7j", href: null },

@@ -103,11 +103,11 @@ export default function Hero() {
                 Demander un devis
               </a>
               <a
-                href="tel:+33612345678"
+                href="tel:+33600000000"
                 className="flex items-center gap-2.5 border border-white/15 hover:border-white/30 text-white/65 hover:text-white text-sm font-medium px-6 py-3.5 rounded transition-all"
               >
                 <PhoneIcon />
-                06 12 34 56 78
+                06 00 00 00 00
               </a>
             </motion.div>
           </div>

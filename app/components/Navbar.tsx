@@ -58,7 +58,7 @@ export default function Navbar() {
 
         <div className="hidden md:flex items-center gap-2.5">
           <a
-            href="tel:+33612345678"
+            href="tel:+33600000000"
             className="flex items-center gap-1.5 text-xs text-red-400 hover:text-red-300 border border-red-500/30 hover:border-red-400/50 px-3 py-1.5 rounded transition-all"
           >
             <span className="w-1.5 h-1.5 bg-red-500 rounded-full animate-pulse" />
@@ -117,10 +117,10 @@ export default function Navbar() {
               ))}
               <div className="pt-3 flex flex-col gap-2">
                 <a
-                  href="tel:+33612345678"
+                  href="tel:+33600000000"
                   className="text-center bg-red-600/80 hover:bg-red-600 text-white py-2.5 rounded text-sm font-medium transition-colors"
                 >
-                  Urgence : 06 12 34 56 78
+                  Urgence : 06 00 00 00 00
                 </a>
                 <a
                   href="#contact"
