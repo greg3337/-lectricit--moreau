@@ -10,10 +10,11 @@ Réalisé par **GregoDev**.
 
 | Technologie | Version | Rôle |
 |---|---|---|
-| Next.js | 16 (App Router) | Framework React SSG |
+| Next.js | 16 (App Router) | Framework React SSG + Route Handlers |
 | TypeScript | 5 | Typage statique |
 | Tailwind CSS | v4 | Styles utilitaires |
 | Framer Motion | latest | Animations et transitions |
+| Resend | latest | Envoi d'emails (formulaire de contact) |
 
 **Fonts** (Google Fonts via `next/font`) :
 - **Bebas Neue** — titres d'impact (hero, stats)
@@ -29,14 +30,18 @@ app/
 ├── layout.tsx              # Fonts, metadata, lang="fr"
 ├── page.tsx                # Assemblage des sections
 ├── globals.css             # Thème Tailwind v4, dot-grid
+├── api/
+│   └── contact/
+│       └── route.ts        # Route Handler POST — envoi email via Resend
 └── components/
     ├── Navbar.tsx          # Navigation fixe, burger mobile
     ├── Hero.tsx            # Hero plein écran animé
     ├── Services.tsx        # 4 cartes de services
     ├── Tarifs.tsx          # Grille tarifaire
     ├── Realisations.tsx    # Portfolio filtrable (6 projets)
-    ├── Contact.tsx         # Formulaire + coordonnées
-    └── Footer.tsx          # Pied de page
+    ├── Avis.tsx            # Témoignages clients (4 avis)
+    ├── Contact.tsx         # Formulaire fonctionnel + coordonnées
+    └── Footer.tsx          # Pied de page 3 colonnes
 ```
 
 ---
@@ -67,10 +72,22 @@ app/
 - 6 projets fictifs avec filtre par catégorie (Résidentiel / Commercial / Industriel)
 - Fonds dégradés avec décorations SVG circuit
 
+### Avis clients
+- 4 témoignages fictifs avec note 5 étoiles, nom, ville et service
+- Score global 4.9/5 · +120 avis affiché en en-tête
+- Référence Google My Business
+
 ### Contact
-- Formulaire : nom, téléphone, email, service, message
+- Formulaire fonctionnel : nom, téléphone, email, service, message
+- Envoi réel par email via Resend (voir [Configuration email](#configuration-email))
+- Loading state + gestion d'erreur réseau
 - Coordonnées : téléphone, email, zone, horaires
 - Certifications : RGE, Quali-Elec, IRVE, QualiPV
+
+### Footer
+- 3 colonnes : logo + description + réseaux sociaux / services / contact
+- Badges de certification (RGE, Quali-Elec, IRVE)
+- Copyright + crédit GregoDev
 
 ---
 
@@ -103,6 +120,44 @@ npm start       # Serveur de production
 
 ---
 
+## Configuration email
+
+Le formulaire de contact envoie les demandes par email via [Resend](https://resend.com).
+
+### 1. Créer un compte Resend
+
+Inscription gratuite sur [resend.com](https://resend.com) (100 emails/jour offerts).
+
+### 2. Obtenir une clé API
+
+Dashboard Resend → **API Keys** → **Create API Key**.
+
+### 3. Ajouter la variable d'environnement
+
+**En local** — créer un fichier `.env.local` à la racine :
+
+```env
+RESEND_API_KEY=re_xxxxxxxxxxxxxxxxxxxx
+```
+
+**Sur Vercel** — Dashboard → projet → **Settings** → **Environment Variables** :
+
+| Nom | Valeur |
+|---|---|
+| `RESEND_API_KEY` | `re_xxxxxxxxxxxxxxxxxxxx` |
+
+### 4. Configurer l'adresse de réception
+
+Dans `app/api/contact/route.ts`, modifier le champ `to` :
+
+```ts
+to: ["votre-email@domaine.fr"],
+```
+
+> **Sans clé API** : le formulaire fonctionne visuellement (loading, succès) mais les messages sont uniquement logués en console serveur.
+
+---
+
 ## Déploiement
 
 Compatible **Vercel** (zéro configuration requise).
@@ -121,12 +176,14 @@ Les données à adapter se trouvent directement dans chaque composant :
 | Fichier | Données à modifier |
 |---|---|
 | `app/layout.tsx` | Titre, description SEO |
-| `components/Navbar.tsx` | Numéro téléphone urgence |
+| `app/api/contact/route.ts` | Adresse email de réception |
+| `components/Navbar.tsx` | Liens de navigation, numéro téléphone |
 | `components/Hero.tsx` | Téléphone, zone d'intervention |
 | `components/Services.tsx` | Descriptions des services |
 | `components/Tarifs.tsx` | Fourchettes de prix |
 | `components/Realisations.tsx` | Projets du portfolio |
-| `components/Contact.tsx` | Email, téléphone, horaires |
+| `components/Avis.tsx` | Témoignages et notes clients |
+| `components/Contact.tsx` | Téléphone, email, horaires |
 | `components/Footer.tsx` | SIRET, adresse, réseaux sociaux |
 
 ---
