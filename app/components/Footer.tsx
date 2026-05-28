@@ -1,8 +1,15 @@
 const services = [
-  "Installation électrique",
-  "Dépannage urgence",
-  "Mise aux normes",
-  "Rénovation électrique",
+  { label: "Installation électrique", href: "#services" },
+  { label: "Dépannage urgence", href: "#services" },
+  { label: "Mise aux normes", href: "#services" },
+  { label: "Rénovation électrique", href: "#services" },
+];
+
+const contact = [
+  { label: "06 12 34 56 78", href: "tel:+33612345678" },
+  { label: "contact@electricite-moreau.fr", href: "mailto:contact@electricite-moreau.fr" },
+  { label: "Bordeaux, Gironde (33)", href: null },
+  { label: "Lun–Ven 7h–19h · Urgences 24h/7j", href: null },
 ];
 
 const socials = [
@@ -10,7 +17,7 @@ const socials = [
     label: "Facebook",
     href: "https://facebook.com",
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
         <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
       </svg>
     ),
@@ -19,7 +26,7 @@ const socials = [
     label: "Instagram",
     href: "https://instagram.com",
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
         <circle cx="12" cy="12" r="4" />
         <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
@@ -30,7 +37,7 @@ const socials = [
     label: "LinkedIn",
     href: "https://linkedin.com",
     icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
         <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
         <circle cx="4" cy="4" r="2" />
       </svg>
@@ -41,29 +48,26 @@ const socials = [
 export default function Footer() {
   return (
     <footer className="bg-surface-2 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6 py-8">
-        <div className="grid md:grid-cols-[2fr,1fr,1fr] gap-8 mb-6">
+      <div className="max-w-7xl mx-auto px-6 py-10">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+          {/* Colonne 1 — Logo + description + socials */}
           <div>
             <div className="flex items-center gap-2.5 mb-3">
-              <div className="w-7 h-7 bg-electric rounded flex items-center justify-center">
+              <div className="w-7 h-7 bg-electric rounded flex items-center justify-center flex-shrink-0">
                 <svg width="12" height="16" viewBox="0 0 14 18" fill="none">
                   <path d="M8 1L1 10.5H6.5L5 17L13 7H7.5L8 1Z" fill="white" />
                 </svg>
               </div>
               <div className="leading-tight">
-                <div className="text-[10px] tracking-[0.25em] uppercase text-electric font-semibold">
-                  Électricité
-                </div>
-                <div className="text-sm font-bold text-white tracking-wide font-display">
-                  MOREAU
-                </div>
+                <div className="text-[10px] tracking-[0.25em] uppercase text-electric font-semibold">Électricité</div>
+                <div className="text-sm font-bold text-white tracking-wide font-display">MOREAU</div>
               </div>
             </div>
-            <p className="text-white/32 text-xs leading-relaxed max-w-xs mb-4">
-              Électricien indépendant certifié RGE à Bordeaux. Votre sécurité
-              électrique, notre priorité depuis 2009.
+            <p className="text-white/35 text-xs leading-relaxed mb-4">
+              Électricien indépendant certifié RGE à Bordeaux. Votre sécurité électrique, notre priorité depuis 2009.
             </p>
-            <div className="flex items-center gap-3 mb-4">
+            <div className="flex items-center gap-2 mb-4">
               {socials.map((s) => (
                 <a
                   key={s.label}
@@ -79,56 +83,48 @@ export default function Footer() {
             </div>
             <div className="flex gap-2 flex-wrap">
               {["RGE", "Quali-Elec", "IRVE"].map((c) => (
-                <span
-                  key={c}
-                  className="text-[10px] text-white/35 border border-white/8 px-2 py-0.5 rounded font-medium"
-                >
+                <span key={c} className="text-[10px] text-white/30 border border-white/8 px-2 py-0.5 rounded font-medium">
                   {c}
                 </span>
               ))}
             </div>
           </div>
 
+          {/* Colonne 2 — Services */}
           <div>
-            <h4 className="text-white/25 text-[11px] uppercase tracking-widest mb-3">
-              Services
-            </h4>
-            <ul className="space-y-2">
+            <h4 className="text-white/25 text-[11px] uppercase tracking-widest mb-4">Services</h4>
+            <ul className="space-y-2.5">
               {services.map((item) => (
-                <li key={item}>
-                  <a
-                    href="#services"
-                    className="text-white/45 hover:text-white text-xs transition-colors"
-                  >
-                    {item}
+                <li key={item.label}>
+                  <a href={item.href} className="text-white/45 hover:text-white text-xs transition-colors">
+                    {item.label}
                   </a>
                 </li>
               ))}
             </ul>
           </div>
 
+          {/* Colonne 3 — Contact */}
           <div>
-            <h4 className="text-white/25 text-[11px] uppercase tracking-widest mb-3">
-              Contact
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li>
-                <a href="tel:+33612345678" className="text-white/45 hover:text-white transition-colors">
-                  06 12 34 56 78
-                </a>
-              </li>
-              <li>
-                <a href="mailto:contact@electricite-moreau.fr" className="text-white/45 hover:text-white transition-colors">
-                  contact@electricite-moreau.fr
-                </a>
-              </li>
-              <li className="text-white/30">Bordeaux, Gironde (33)</li>
-              <li className="text-white/30">Lun–Ven 7h–19h</li>
+            <h4 className="text-white/25 text-[11px] uppercase tracking-widest mb-4">Contact</h4>
+            <ul className="space-y-2.5">
+              {contact.map((item) => (
+                <li key={item.label}>
+                  {item.href ? (
+                    <a href={item.href} className="text-white/45 hover:text-white text-xs transition-colors">
+                      {item.label}
+                    </a>
+                  ) : (
+                    <span className="text-white/30 text-xs">{item.label}</span>
+                  )}
+                </li>
+              ))}
             </ul>
           </div>
         </div>
 
-        <div className="pt-4 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2">
+        {/* Copyright */}
+        <div className="mt-8 pt-5 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2">
           <p className="text-white/20 text-xs">
             © 2025 Électricité Moreau · SIRET 123 456 789 00012 · Bordeaux
           </p>
