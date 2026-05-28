@@ -32,6 +32,8 @@ const contactInfo = [
 
 export default function Contact() {
   const [sent, setSent] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const [form, setForm] = useState({
     nom: "",
     email: "",
@@ -40,9 +42,25 @@ export default function Contact() {
     message: "",
   });
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    setSent(true);
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) throw new Error("Erreur serveur");
+      setSent(true);
+    } catch {
+      setError("Une erreur est survenue. Veuillez réessayer ou nous appeler directement.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -262,11 +280,28 @@ export default function Contact() {
                   />
                 </div>
 
+                {error && (
+                  <p className="text-red-400/80 text-xs text-center bg-red-500/8 border border-red-500/15 rounded-lg px-4 py-3">
+                    {error}
+                  </p>
+                )}
+
                 <button
                   type="submit"
-                  className="block mx-auto bg-electric hover:bg-electric-dark text-white font-bold py-3.5 px-10 rounded-xl transition-colors text-sm tracking-wide"
+                  disabled={loading}
+                  className="block mx-auto bg-electric hover:bg-electric-dark disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold py-3.5 px-10 rounded-xl transition-colors text-sm tracking-wide flex items-center gap-2"
                 >
-                  Envoyer ma demande
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                        <circle cx="12" cy="12" r="10" strokeOpacity="0.25" />
+                        <path d="M12 2a10 10 0 0 1 10 10" />
+                      </svg>
+                      Envoi en cours…
+                    </>
+                  ) : (
+                    "Envoyer ma demande"
+                  )}
                 </button>
 
                 <p className="text-white/22 text-xs text-center">
