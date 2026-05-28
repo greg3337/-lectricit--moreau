@@ -36,7 +36,7 @@ export default function RootLayout({
       lang="fr"
       className={`${dmSans.variable} ${barlowCondensed.variable} ${bebasNeue.variable}`}
     >
-      <body className="min-h-screen">{children}</body>
+      <body>{children}</body>
     </html>
   );
 }
