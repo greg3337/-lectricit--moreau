@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   description:
     "Électricien certifié RGE à Bordeaux. Installation, dépannage urgence 24h/7j, mise aux normes et rénovation électrique en Gironde.",
   keywords: "électricien bordeaux, dépannage électrique, installation électrique, mise aux normes, gironde",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({
